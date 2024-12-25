@@ -5,3 +5,7 @@
 ```bash
 go run app/cmd/main.go
 ```
+
+```bash
+go fmt ./...
+```
