@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   request.UserCountAddRequest:
     properties:
@@ -33,8 +34,12 @@ definitions:
       name:
         type: string
     type: object
+host: localhost:8080
 info:
   contact: {}
+  description: My Go Backend Template
+  title: Go Backend Template
+  version: "1.0"
 paths:
   /user/count:
     post:
@@ -55,7 +60,11 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/response.UserCountAddResponse'
+      security:
+      - ApiKeyAuth: []
       summary: ユーザーのカウントを追加
+      tags:
+      - user
   /user/create:
     post:
       consumes:
@@ -76,6 +85,8 @@ paths:
           schema:
             $ref: '#/definitions/response.UserCreateResponse'
       summary: ユーザーの作成
+      tags:
+      - user
   /user/destroy:
     post:
       consumes:
@@ -88,7 +99,11 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/response.UserDestroyResponse'
+      security:
+      - ApiKeyAuth: []
       summary: ユーザーの削除
+      tags:
+      - user
   /user/get:
     post:
       consumes:
@@ -101,5 +116,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/response.UserGetResponse'
+      security:
+      - ApiKeyAuth: []
       summary: ユーザーの取得
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-token
+    type: apiKey
 swagger: "2.0"

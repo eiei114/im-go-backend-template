@@ -161,6 +161,7 @@ func (u *UserHandler) CountAddHandle() bunrouter.HandlerFunc {
 // @Tags user
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} response.UserDestroyResponse
 // @Router /user/destroy [post]
 func (u *UserHandler) DestroyHandle() bunrouter.HandlerFunc {

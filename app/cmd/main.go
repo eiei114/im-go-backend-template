@@ -1,3 +1,11 @@
+// @title           Go Backend Template
+// @version         1.0
+// @description     My Go Backend Template
+// @host            localhost:8080
+// @BasePath        /
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name x-token
 package main
 
 import (

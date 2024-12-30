@@ -1,17 +1,30 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "My Go Backend Template",
+        "title": "Go Backend Template",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/",
     "paths": {
         "/user/count": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "ユーザーのカウントを追加します",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "ユーザーのカウントを追加",
                 "parameters": [
@@ -44,6 +57,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "ユーザーの作成",
                 "parameters": [
                     {
@@ -68,12 +84,20 @@
         },
         "/user/destroy": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "ユーザーを削除します",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "ユーザーの削除",
                 "responses": {
@@ -88,12 +112,20 @@
         },
         "/user/get": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "ユーザーを取得します",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "ユーザーの取得",
                 "responses": {
@@ -161,6 +193,13 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "x-token",
+            "in": "header"
         }
     }
 }
