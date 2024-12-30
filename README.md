@@ -1,4 +1,5 @@
 ## Go Backend Template
+[![CI](https://github.com/eiei114/im-go-backend-template/actions/workflows/ci.yml/badge.svg)](https://github.com/eiei114/im-go-backend-template/actions/workflows/ci.yml)
 
 ## Routes
 - http://localhost:8080/swagger/index.html
