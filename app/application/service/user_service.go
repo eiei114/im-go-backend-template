@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"log"
 
 	"github.com/eiei114/go-backend-template/domain"
 	"github.com/eiei114/go-backend-template/domain/repository"
@@ -20,19 +21,23 @@ func (u *UserService) Add(ctx context.Context, name string) (string, error) {
 	// UUIDでユーザIDと認証トークンを生成
 	userID, err := uuid.NewRandom()
 	if err != nil {
-		return "", err
+		log.Println("Failed to generate user ID", err)
+		return "Failed to generate user ID", err
 	}
 
 	authToken, err := uuid.NewRandom()
 	if err != nil {
-		return "", err
+		log.Println("Failed to generate auth token", err)
+		return "Failed to generate auth token", err
 	}
 
 	err = u.UserRepository.AddUser(ctx, userID.String(), authToken.String(), name)
 	if err != nil {
-		return "", err
+		log.Println("Failed to add user", err)
+		return "Failed to add user", err
 	}
 
+	log.Println("User added successfully", userID.String(), authToken.String(), name)
 	return authToken.String(), nil
 }
 

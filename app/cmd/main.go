@@ -6,7 +6,8 @@ import (
 
 	"github.com/eiei114/go-backend-template/application/middleware"
 	"github.com/eiei114/go-backend-template/application/service"
-	"github.com/eiei114/go-backend-template/config"
+	"github.com/eiei114/go-backend-template/config" // ここでパッケージをインポート
+	_ "github.com/eiei114/go-backend-template/docs"
 	infrastructure "github.com/eiei114/go-backend-template/infrastructure/persistence"
 	"github.com/eiei114/go-backend-template/interface/handler"
 	"github.com/eiei114/go-backend-template/interface/router"
@@ -14,7 +15,7 @@ import (
 
 func main() {
 	db, _ := config.NewDBConnection()
-	//db_init.CreateTable(db)
+	//database_init.CreateTable(db)
 
 	userRepository := infrastructure.NewUserRepository(db)
 	userService := service.NewUserService(userRepository)

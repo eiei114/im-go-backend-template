@@ -60,6 +60,7 @@ func (u *UserHandler) UserCreateHandle() bunrouter.HandlerFunc {
 // @Description ユーザーを取得します
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} response.UserGetResponse
 // @Router /user/get [post]
 func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
@@ -100,6 +101,7 @@ func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
 // @Description ユーザーのカウントを追加します
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param request body request.UserCountAddRequest true "UserCountAddRequest"
 // @Success 200 {object} response.UserCountAddResponse
 // @Router /user/count [post]
