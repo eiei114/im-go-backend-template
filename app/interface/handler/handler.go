@@ -22,6 +22,7 @@ func NewUserHandler(userService service.UserService) *UserHandler {
 
 // @Summary ユーザーの作成
 // @Description ユーザーを作成します
+// @Tags user
 // @Accept json
 // @Produce json
 // @Param request body request.UserCreateRequest true "UserCreateRequest"
@@ -58,6 +59,7 @@ func (u *UserHandler) UserCreateHandle() bunrouter.HandlerFunc {
 
 // @Summary ユーザーの取得
 // @Description ユーザーを取得します
+// @Tags user
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -99,6 +101,7 @@ func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
 
 // @Summary ユーザーのカウントを追加
 // @Description ユーザーのカウントを追加します
+// @Tags user
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -155,6 +158,7 @@ func (u *UserHandler) CountAddHandle() bunrouter.HandlerFunc {
 
 // @Summary ユーザーの削除
 // @Description ユーザーを削除します
+// @Tags user
 // @Accept json
 // @Produce json
 // @Success 200 {object} response.UserDestroyResponse
