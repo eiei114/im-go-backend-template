@@ -64,9 +64,9 @@ func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
 
 		// Prepare the response using UserGetResponse struct
 		responseData := &response.UserGetResponse{
-			Id:        user.Id,
-			Name:      user.Name,
-			Count:     user.Count,
+			Id:    user.Id,
+			Name:  user.Name,
+			Count: user.Count,
 		}
 
 		respBytes, err := json.Marshal(responseData)
