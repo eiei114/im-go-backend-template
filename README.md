@@ -20,3 +20,10 @@ docker compose -f app/compose.yml up -d
 ```bash
 docker compose -f app/compose.yml down
 ```
+
+### Swagger Init
+```bash
+swag init -g app/cmd/main.go
+```
+
+

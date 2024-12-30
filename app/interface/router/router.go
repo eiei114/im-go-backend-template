@@ -1,6 +1,8 @@
 package router
 
 import (
+	httpSwagger "github.com/swaggo/http-swagger"
+
 	"github.com/eiei114/go-backend-template/application/middleware"
 	"github.com/eiei114/go-backend-template/interface/handler"
 	"github.com/uptrace/bunrouter"
@@ -24,6 +26,12 @@ func (i *Router) InitRouter() *bunrouter.Router {
 	b.Use(i.Middleware.CorsMiddleware())
 
 	b.POST("/user/create", i.UserHandler.UserCreateHandle())
+
+	swagHandler := httpSwagger.Handler(
+		httpSwagger.URL("/swagger/doc.json"),
+	)
+	bswag := bunrouter.HTTPHandlerFunc(swagHandler)
+	b.GET("/swagger/:*", bswag)
 
 	b.Use(i.Middleware.AuthenticateMiddleware()).WithGroup("", func(group *bunrouter.Group) {
 		group.POST("/user/get", i.UserHandler.UserGetHandle())

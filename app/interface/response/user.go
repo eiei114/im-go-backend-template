@@ -9,3 +9,11 @@ type UserGetResponse struct {
 	Name  string `json:"name"`
 	Count int    `json:"count"`
 }
+
+type UserCountAddResponse struct {
+	Count int `json:"count"`
+}
+
+type UserDestroyResponse struct {
+	Message string `json:"message"`
+}

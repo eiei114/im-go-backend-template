@@ -20,6 +20,13 @@ func NewUserHandler(userService service.UserService) *UserHandler {
 	return &UserHandler{userService: userService}
 }
 
+// @Summary ユーザーの作成
+// @Description ユーザーを作成します
+// @Accept json
+// @Produce json
+// @Param request body request.UserCreateRequest true "UserCreateRequest"
+// @Success 200 {object} response.UserCreateResponse
+// @Router /user/create [post]
 func (u *UserHandler) UserCreateHandle() bunrouter.HandlerFunc {
 	return func(w http.ResponseWriter, req bunrouter.Request) error {
 		var requestData request.UserCreateRequest
@@ -49,6 +56,12 @@ func (u *UserHandler) UserCreateHandle() bunrouter.HandlerFunc {
 	}
 }
 
+// @Summary ユーザーの取得
+// @Description ユーザーを取得します
+// @Accept json
+// @Produce json
+// @Success 200 {object} response.UserGetResponse
+// @Router /user/get [post]
 func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
 	return func(w http.ResponseWriter, req bunrouter.Request) error {
 
@@ -83,6 +96,13 @@ func (u *UserHandler) UserGetHandle() bunrouter.HandlerFunc {
 	}
 }
 
+// @Summary ユーザーのカウントを追加
+// @Description ユーザーのカウントを追加します
+// @Accept json
+// @Produce json
+// @Param request body request.UserCountAddRequest true "UserCountAddRequest"
+// @Success 200 {object} response.UserCountAddResponse
+// @Router /user/count [post]
 func (u *UserHandler) CountAddHandle() bunrouter.HandlerFunc {
 	return func(w http.ResponseWriter, req bunrouter.Request) error {
 		var requestData request.UserCountAddRequest
@@ -103,6 +123,7 @@ func (u *UserHandler) CountAddHandle() bunrouter.HandlerFunc {
 			return err
 		}
 
+		// Prepare the response using UserCountAddResponse struct
 		count := requestData.Count
 
 		log.Println("count", count)
@@ -112,10 +133,30 @@ func (u *UserHandler) CountAddHandle() bunrouter.HandlerFunc {
 		log.Println("user.Count", user.Count)
 		_ = u.userService.UpdateUser(ctx, user)
 
+		responseData := &response.UserCountAddResponse{
+			Count: user.Count,
+		}
+
+		respBytes, err := json.Marshal(responseData)
+		if err != nil {
+			http.Error(w, "Failed to generate response", http.StatusInternalServerError)
+			return err
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(respBytes)
+
 		return nil
 	}
 }
 
+// @Summary ユーザーの削除
+// @Description ユーザーを削除します
+// @Accept json
+// @Produce json
+// @Success 200 {object} response.UserDestroyResponse
+// @Router /user/destroy [post]
 func (u *UserHandler) DestroyHandle() bunrouter.HandlerFunc {
 	return func(w http.ResponseWriter, req bunrouter.Request) error {
 		ctx := req.Context()
@@ -127,9 +168,19 @@ func (u *UserHandler) DestroyHandle() bunrouter.HandlerFunc {
 			return err
 		}
 
+		responseData := &response.UserDestroyResponse{
+			Message: "User successfully deleted",
+		}
+
+		respBytes, err := json.Marshal(responseData)
+		if err != nil {
+			http.Error(w, "Failed to generate response", http.StatusInternalServerError)
+			return err
+		}
+
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"message": "User successfully deleted"}`))
+		w.Write(respBytes)
 		return nil
 	}
 }
