@@ -24,7 +24,13 @@ func (u *UserRepository) AddUser(ctx context.Context, id, authToken, name string
 		Count:     0,
 	}
 	_, err := u.Conn.NewInsert().Model(user).Exec(ctx)
-	return err
+
+	if err != nil {
+		log.Println("Failed to add user", err)
+		return err
+	}
+
+	return nil
 }
 
 func (u *UserRepository) UpdateUser(ctx context.Context, user domain.User) error {
@@ -35,20 +41,30 @@ func (u *UserRepository) UpdateUser(ctx context.Context, user domain.User) error
 		Count:     user.Count,
 	}
 	_, err := u.Conn.NewUpdate().Model(uuser).Where("id = ?", uuser.Id).Exec(ctx)
-	log.Println(uuser.Count)
-	return err
+	if err != nil {
+		log.Println("Failed to update user", err)
+		return err
+	}
+
+	return nil
 }
 
 func (u *UserRepository) DeleteUser(ctx context.Context, id string) error {
 	user := &domain.User{Id: id}
 	_, err := u.Conn.NewDelete().Model(user).Where("id = ?", id).Exec(ctx)
-	return err
+	if err != nil {
+		log.Println("Failed to delete user", err)
+		return err
+	}
+
+	return nil
 }
 
 func (u *UserRepository) GetUserByUserId(ctx context.Context, id string) (domain.User, error) {
 	var user domain.User
 	err := u.Conn.NewSelect().Model(&user).Where("id = ?", id).Scan(ctx)
 	if err != nil {
+		log.Println("Failed to get user", err)
 		return domain.User{}, err
 	}
 	return user, nil
@@ -58,6 +74,7 @@ func (u *UserRepository) GetUserByAuthToken(ctx context.Context, authToken strin
 	user := new(domain.User)
 	err := u.Conn.NewSelect().Model(user).Where("auth_token = ?", authToken).Scan(ctx)
 	if err != nil {
+		log.Println("Failed to get user", err)
 		return nil, err
 	}
 	return user, nil
